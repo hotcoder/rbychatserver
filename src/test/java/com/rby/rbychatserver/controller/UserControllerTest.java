@@ -4,18 +4,21 @@ package com.rby.rbychatserver.controller;
 import com.rby.rbychatserver.model.User;
 import com.rby.rbychatserver.service.UserService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// UserControllerTest.java
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
 
@@ -45,4 +48,21 @@ public class UserControllerTest {
                         .content("{ \"username\": \"testuser\", \"password\": \"password\" }"))
                 .andExpect(status().isUnauthorized());
     }
+
+    @Test
+    public void testJoinChatRoom_Success() throws Exception {
+        given(userService.joinChatRoom(anyLong(), anyLong())).willReturn(true);
+
+        mockMvc.perform(post("/api/users/1/join/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testJoinChatRoom_UserNotFound() throws Exception {
+        given(userService.joinChatRoom(anyLong(), anyLong())).willReturn(false);
+
+        mockMvc.perform(post("/api/users/1/join/1"))
+                .andExpect(status().isNotFound());
+    }
 }
+
