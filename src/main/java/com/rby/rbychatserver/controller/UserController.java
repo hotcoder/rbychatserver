@@ -1,16 +1,14 @@
 package com.rby.rbychatserver.controller;
 
+// UserController.java
+
 import com.rby.rbychatserver.model.User;
 import com.rby.rbychatserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-// UserController.java
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -27,4 +25,15 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
+    @PostMapping("/{userId}/join/{roomId}")
+    public ResponseEntity<?> joinChatRoom(@PathVariable Long userId, @PathVariable Long roomId) {
+        boolean success = userService.joinChatRoom(userId, roomId);
+        if (success) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
+

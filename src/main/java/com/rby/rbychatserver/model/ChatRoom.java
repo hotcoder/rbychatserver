@@ -7,9 +7,26 @@ import jakarta.persistence.Id;
 
 @Entity
 public class ChatRoom {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Other fields and methods
+    private String name;
+
+    public ChatRoom() {
+    }
+
+    public ChatRoom(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }

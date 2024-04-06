@@ -1,8 +1,10 @@
 package com.rby.rbychatserver.model;
 
+// User.java
+
 import jakarta.persistence.*;
 
-// User.java
+
 @Entity
 public class User {
 
@@ -15,7 +17,9 @@ public class User {
 
     private String password;
 
-    // Constructors, getters, and setters
+    @ManyToOne
+    @JoinColumn(name = "chat_room_id")
+    private ChatRoom chatRoom;
 
     public User() {
     }
@@ -25,8 +29,6 @@ public class User {
         this.password = password;
     }
 
-    // Getters and setters
-
     public Long getId() {
         return id;
     }
@@ -35,11 +37,11 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
+      public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+      public void setUsername(String username) {
         this.username = username;
     }
 
@@ -47,7 +49,16 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
+      public void setPassword(String password) {
         this.password = password;
     }
+
+    public ChatRoom getChatRoom() {
+        return chatRoom;
+    }
+
+    public void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+    }
 }
+
