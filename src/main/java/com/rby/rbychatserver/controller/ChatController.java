@@ -16,9 +16,9 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
-    @GetMapping("/messages")
-    public List<ChatMessage> getMessages() {
-        return chatService.getChatMessages();
+    @GetMapping("/rooms/{roomId}/messages")
+    public List<ChatMessage> getMessages(@PathVariable Long roomId) {
+        return chatService.getChatMessages(roomId);
     }
 
     @PostMapping("/messages")

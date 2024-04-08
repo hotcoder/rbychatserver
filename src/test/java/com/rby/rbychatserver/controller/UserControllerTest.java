@@ -1,10 +1,13 @@
 package com.rby.rbychatserver.controller;
 
 
+import com.rby.rbychatserver.dto.UserDTO;
 import com.rby.rbychatserver.model.User;
+import com.rby.rbychatserver.repository.UserRepository;
 import com.rby.rbychatserver.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -15,6 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,6 +29,9 @@ public class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Mock
+    private UserRepository userRepository;
 
     @MockBean
     private UserService userService;
@@ -63,6 +71,23 @@ public class UserControllerTest {
 
         mockMvc.perform(post("/api/users/1/join/1"))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testAddUser() {
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUsername("testUser");
+        userDTO.setPassword("password123");
+
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
+
+
+        userService.addUser(userDTO);
+
+        verify(userRepository, times(1)).save(user);
     }
 }
 

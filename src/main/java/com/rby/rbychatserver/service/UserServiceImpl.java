@@ -1,5 +1,6 @@
 package com.rby.rbychatserver.service;
 
+import com.rby.rbychatserver.dto.UserDTO;
 import com.rby.rbychatserver.model.ChatRoom;
 import com.rby.rbychatserver.model.User;
 import com.rby.rbychatserver.repository.ChatRoomRepository;
@@ -39,6 +40,20 @@ public class UserServiceImpl implements UserService {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean isUserExists(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public void addUser(UserDTO userDTO) {
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
+
+        userRepository.save(user);
     }
 }
 

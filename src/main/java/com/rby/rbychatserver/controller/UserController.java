@@ -2,8 +2,10 @@ package com.rby.rbychatserver.controller;
 
 // UserController.java
 
+import com.rby.rbychatserver.dto.UserDTO;
 import com.rby.rbychatserver.model.User;
 import com.rby.rbychatserver.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,19 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addUser(@Valid @RequestBody UserDTO userDTO) {
+        // Check if username already exists
+        if (userService.isUserExists(userDTO.getUsername())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists");
+        }
+
+        // Add new user
+        userService.addUser(userDTO);
+
+        return ResponseEntity.ok("User added successfully");
     }
 }
 

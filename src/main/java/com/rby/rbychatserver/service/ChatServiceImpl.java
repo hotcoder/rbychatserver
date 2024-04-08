@@ -19,8 +19,8 @@ public class ChatServiceImpl implements ChatService {
     private ChatMessageRepository chatMessageRepository;
 
     @Override
-    public List<ChatMessage> getChatMessages() {
-        return chatMessageRepository.findAll();
+    public List<ChatMessage> getChatMessages(Long roomId) {
+        return chatMessageRepository.findByRoomId(roomId);
     }
 
     @Override

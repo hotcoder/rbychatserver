@@ -1,9 +1,11 @@
 package com.rby.rbychatserver.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 // ChatMessage.java
 @Entity
+@Data
 public class ChatMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
