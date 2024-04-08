@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-// ChatServiceImpl.java
+
 @Service
 public class ChatServiceImpl implements ChatService {
 
