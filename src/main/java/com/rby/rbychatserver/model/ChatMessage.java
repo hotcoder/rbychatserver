@@ -16,6 +16,4 @@ public class ChatMessage {
     @ManyToOne
     @JoinColumn(name = "chat_room_id", nullable = false)
     private ChatRoom chatRoom;
-
-    // Other fields and methods
 }
