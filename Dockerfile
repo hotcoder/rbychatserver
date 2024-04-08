@@ -1,5 +1,5 @@
 # Use a base image with Java 17 and Alpine Linux
-FROM adoptopenjdk/openjdk17:alpine
+FROM openjdk:17-alpine
 
 WORKDIR /app
 
