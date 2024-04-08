@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// ChatController.java
+
 @RestController
 @RequestMapping("/api/chat")
 public class ChatController {
