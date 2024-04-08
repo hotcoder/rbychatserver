@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class User {
+public class ChatUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,12 +21,12 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "chat_room_id")
-    private ChatRoom chatRoom;
+    private ChatRoom room;
 
-    public User() {
+    public ChatUser() {
     }
 
-    public User(String username, String password) {
+    public ChatUser(String username, String password) {
         this.username = username;
         this.password = password;
     }

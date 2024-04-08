@@ -1,11 +1,11 @@
 package com.rby.rbychatserver.service;
 
 import com.rby.rbychatserver.dto.UserDTO;
-import com.rby.rbychatserver.model.User;
+import com.rby.rbychatserver.model.ChatUser;
 
 // UserService.java
 public interface UserService {
-    User authenticate(String username, String password);
+    ChatUser authenticate(String username, String password);
     boolean joinChatRoom(Long userId, Long roomId);
 
     boolean isUserExists(String username);

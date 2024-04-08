@@ -1,6 +1,7 @@
 package com.rby.rbychatserver.controller;
 
 import com.rby.rbychatserver.model.ChatMessage;
+import com.rby.rbychatserver.model.ChatRoom;
 import com.rby.rbychatserver.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,4 +27,12 @@ public class ChatController {
         chatService.saveMessage(message);
         return ResponseEntity.ok().build();
     }
+
+
+    @GetMapping("/chatrooms")
+    public List<ChatRoom> getAllChatRooms() {
+        return chatService.findAllChatRooms();
+    }
+
+
 }

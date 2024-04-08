@@ -1,14 +1,14 @@
 package com.rby.rbychatserver.repository;
 
-import com.rby.rbychatserver.model.User;
+import com.rby.rbychatserver.model.ChatUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 // UserRepository.java
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface ChatUserRepository extends JpaRepository<ChatUser, Long> {
 
-    User findByUsernameAndPassword(String username, String password);
+    ChatUser findByUsernameAndPassword(String username, String password);
 
     boolean existsByUsername(String username);
 }

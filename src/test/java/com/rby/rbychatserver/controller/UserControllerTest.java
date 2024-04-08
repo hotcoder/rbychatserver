@@ -2,8 +2,8 @@ package com.rby.rbychatserver.controller;
 
 
 import com.rby.rbychatserver.dto.UserDTO;
-import com.rby.rbychatserver.model.User;
-import com.rby.rbychatserver.repository.UserRepository;
+import com.rby.rbychatserver.model.ChatUser;
+import com.rby.rbychatserver.repository.ChatUserRepository;
 import com.rby.rbychatserver.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,14 +31,14 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private UserRepository userRepository;
+    private ChatUserRepository userRepository;
 
     @MockBean
     private UserService userService;
 
     @Test
     public void testLogin_Success() throws Exception {
-        User user = new User("testuser", "password");
+        ChatUser user = new ChatUser("testuser", "password");
         given(userService.authenticate(anyString(), anyString())).willReturn(user);
 
         mockMvc.perform(post("/api/users/login")
@@ -80,7 +80,7 @@ public class UserControllerTest {
         userDTO.setUsername("testUser");
         userDTO.setPassword("password123");
 
-        User user = new User();
+        ChatUser user = new ChatUser();
         user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
 

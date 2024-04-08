@@ -2,14 +2,16 @@ package com.rby.rbychatserver.util;
 
 import com.rby.rbychatserver.model.ChatRoom;
 import com.rby.rbychatserver.repository.ChatRoomRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class ChatRoomInitializer implements ApplicationRunner {
+@Slf4j
+public class ChatRoomInitializer {
 
     private final ChatRoomRepository chatRoomRepository;
 
@@ -18,14 +20,15 @@ public class ChatRoomInitializer implements ApplicationRunner {
         this.chatRoomRepository = chatRoomRepository;
     }
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        // Check if chat room exists
+    @EventListener(ApplicationReadyEvent.class)
+    public void runAfterStartup() {
         if (chatRoomRepository.count() == 0) {
             // Create a new chat room
             ChatRoom chatRoom = new ChatRoom();
-            // You can set additional properties for the chat room here if needed
+            chatRoom.setName("General");
+
             chatRoomRepository.save(chatRoom);
+            log.info("Chat room created: {}", chatRoom);
         }
     }
 }
